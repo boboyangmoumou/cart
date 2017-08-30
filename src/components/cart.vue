@@ -2,7 +2,7 @@
   <div class="cart">
       <div class="cart-heading">
           <span class="headcart">购物车</span>
-          <span class="pull-right"><strong>总计{{acountPrice | Currency}}</strong></span>
+          <span class="pull-right"><strong>总计:{{acountPrice | Currency}}</strong></span>
       </div>
       <div class="cartBody">
           <ul>
@@ -22,7 +22,7 @@
               </li>
           </ul>
       </div>
-      <div class="footer-btn">
+      <div class="footer-btn" @click="clearing()">
           <button class="btn-block">
               结算
           </button>
@@ -30,7 +30,8 @@
   </div>
 </template>
 <script>
-import Bus from '../Bus'
+import {bus} from '../Bus'
+import Vue from 'vue'
     export default{
         props:{
             cart:{
@@ -39,7 +40,8 @@ import Bus from '../Bus'
         },
         data:function(){
             return{
-                value:[]
+                value:[],
+                user_id:[]
             }
         },
         computed:{
@@ -51,9 +53,19 @@ import Bus from '../Bus'
                 return totalPrice
             }
         },
+        created:function(){
+            bus.$on('user_id',(text)=>{
+                this.user_id = text;
+                console.log(this.user_id);
+            })
+            
+        },
         methods:{
             deletegood(index){
                 this.cart.splice(index,1);
+            },
+            clearing(){
+
             }
         },
         filters:{

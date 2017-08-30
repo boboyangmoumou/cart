@@ -40,12 +40,14 @@
                 </button>
             </div>
         </div>
+        <keep-alive>
         <cart :cart="cart"></cart>
+        </keep-alive>
     </div>
 </template>
 <script>
 import Vue from 'vue'
-import Bus from '../Bus'
+import {bus} from '../Bus'
 import cart from '@/components/cart.vue'
     export default{
         props:{
@@ -61,7 +63,9 @@ import cart from '@/components/cart.vue'
                 type:false    
             }
         },
-       
+       destroyed(){
+            bus.$emit("user_id",this.cart);
+       },
        methods:{
            changeStyle(key){
                if(this.flag==false){

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <cartNav></cartNav>
-    <router-view :result="result"></router-view>
+    <router-view :result="result"  keep-alive></router-view>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
         result:{}
     }
   },
-  created:function(){
+  mounted:function(){
            var _this = this;
            Vue.axios.get('../../static/data.json').then(res=>{
                console.log(res.data.iPhone6S[0]);

@@ -1,2 +1,2 @@
 import Vue from 'vue'
-export default new Vue();
+export var bus = new Vue();

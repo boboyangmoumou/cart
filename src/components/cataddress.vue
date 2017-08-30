@@ -14,14 +14,32 @@
         <div class="address-list-wrap">
             <div class="address-list">
                 <ul>
-                    <li v-for="(address,index) in tableList.result" :key="index">
+                    <li v-for="(address,index) in tableList.result" :key="index" class="listborder">
                         <div class="list-rect">
                             <span>{{address.userName}}</span>
                             <span>{{address.streetName}}</span>
                             <span>{{address.tel}}</span>
                         </div>
+                        <div class="addressOption">
+                            <a href="javascript:;" class="icon-pencil"></a>
+                        </div>
+                        <div class="addressdetele">
+                            <a href="javascript:;" class="icon-bin"></a>
+                        </div>
+                    </li>
+                    <li class="add-new">
+                        <div class="add-new-inner">
+                            <i class="icon-plus"></i>
+                            <p>添加新地址</p>
+                        </div>
                     </li>
                 </ul>
+            </div>
+            <div class="add-mare">
+                <a href="javascript:;">
+                    more
+                    <i class="i-up-down"></i>
+                </a>
             </div>
         </div>
   </div>
@@ -33,6 +51,9 @@ import Vue from 'vue'
             return{
                 tableList:{}
             }
+        },
+        computed:{
+            
         },
         mounted:function(){
             this.$nextTick(function(){
@@ -114,17 +135,89 @@ import Vue from 'vue'
              padding-bottom: 40px;
              ul{
                  display: flex;
+                 display: -ms-flexbox;
                  direction:row;
-                 
-             }
-             li{
-                 position: relative;
-                 flex: 1;
                  flex-wrap:wrap;
+                 li{
+                    position: relative;
+                    display: inline-block;
+                    height: 82px;
+                    overflow: hidden;
+                    margin: 10px 2% 10px 0;
+                    padding: 20px 20px 40px 20px;
+                    background-color: #fff;
+                    border: 2px solid #e9e9e9;
+                    cursor: pointer;
+                    width: 23.5%;
+                    .list-rect{
+                        display: flex;
+                        flex-direction: column;
+                        span{
+                            padding: 8px;
+                            color: #605F5F;
+                            font-size: 16px;
+                            font-family: "微软雅黑";
+                            &:first-child{
+                                font-size: 20px;
+                                padding: 0 8px 8px 8px;
+                            }
+                            &:last-child{
+                                padding: 16px 8px 8px 8px;
+                            }
+                        }
+                    }
+                    &.listborder{
+                        border-color: #EE7A23;
+                        border-width: 2px;
+                    }
+                    .addressOption{
+                        position: absolute;
+                        right: 20px;
+                        top: 25px;
+                        height: 20px;
+                        width: 20px;
+                        .icon-pencil{
+                            color: #333;
+                            &:hover{
+                                color: #EE7A23;
+                            }
+                        }
+                    }
+                    .addressdetele{
+                        position: absolute;
+                        right: 20px;
+                        bottom: 14px;
+                        height: 20px;
+                        width: 20px;
+                        .icon-bin{
+                            color: #333;
+                            &:hover{
+                                color: #EE7A23;
+                            }
+                        }
+                    }
+                    .add-new-inner{
+                        padding-top:20px;
+                        text-align: center;
+                        .icon-plus{
+                            font-size: 40px;
+                            color: #605F5F;
+                        }
+                        p{
+                            margin-top: 10px;
+                        }
+                    }
+                }
              }
-             .address-list{
-
+             .add-mare{
+                 margin-top: 10px;
+                 text-align: center;
+                 a{
+                     color: #EE7A23;
+                     text-decoration: none;
+                 }
              }
+            
          }
     }
    

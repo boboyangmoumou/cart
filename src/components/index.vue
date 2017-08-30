@@ -101,7 +101,7 @@ import cart from '@/components/cart.vue'
 .container{
     display: flex;
     direction: row;
-    width: 1000px;
+    /*width: 1000px;*/
     /*margin: 0 auto;*/
 }
 .container .row{

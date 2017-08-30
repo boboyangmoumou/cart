@@ -2,7 +2,7 @@
   <div class="cart">
       <div class="cart-heading">
           <span class="headcart">购物车</span>
-          <span class="pull-right"><strong>总计</strong></span>
+          <span class="pull-right"><strong>总计{{acountPrice | Currency}}</strong></span>
       </div>
       <div class="cartBody">
           <ul>
@@ -16,7 +16,7 @@
                         <span v-text="value.count"></span>
                   </div>
                   <div class="price">
-                        <span v-text="value.price"></span>
+                        <span>{{value.price | Currency}}</span>
                   </div>
                   <div class="delete" @click="deletegood(index)">X</div>
               </li>
@@ -42,9 +42,23 @@ import Bus from '../Bus'
                 value:[]
             }
         },
+        computed:{
+            acountPrice:function(){
+                let totalPrice=0;
+                for(let i in this.cart){
+                    totalPrice +=this.cart[i].price;
+                }
+                return totalPrice
+            }
+        },
         methods:{
             deletegood(index){
-                
+                this.cart.splice(index,1);
+            }
+        },
+        filters:{
+            Currency:function(val){
+                return val + "元";
             }
         }
     }

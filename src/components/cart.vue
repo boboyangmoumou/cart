@@ -30,9 +30,14 @@
   </div>
 </template>
 <script>
-import {bus} from '../Bus'
 import Vue from 'vue'
+import {mapGetters} from 'vuex'
     export default{
+        computed:{
+                ...mapGetters([
+                    'cartInfo'
+                ])
+        },
         props:{
             cart:{
                 type:Array
@@ -53,12 +58,8 @@ import Vue from 'vue'
                 return totalPrice
             }
         },
-        created:function(){
-            bus.$on('user_id',(text)=>{
-                this.user_id = text;
-                console.log(this.user_id);
-            })
-            
+        created(){
+            console.log(this.cartInfo);
         },
         methods:{
             deletegood(index){

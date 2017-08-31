@@ -40,15 +40,13 @@
                 </button>
             </div>
         </div>
-        <keep-alive>
-        <cart :cart="cart"></cart>
-        </keep-alive>
+        <!-- <cart :cart="cart"></cart> -->
     </div>
 </template>
 <script>
 import Vue from 'vue'
-import {bus} from '../Bus'
 import cart from '@/components/cart.vue'
+import {mapMutations} from 'vuex'
     export default{
         props:{
             result:{
@@ -63,9 +61,6 @@ import cart from '@/components/cart.vue'
                 type:false    
             }
         },
-       destroyed(){
-            bus.$emit("user_id",this.cart);
-       },
        methods:{
            changeStyle(key){
                if(this.flag==false){
@@ -83,6 +78,7 @@ import cart from '@/components/cart.vue'
                 this.flag==true
            },
            addshopcart(){
+                var newData=[];
                 const activeStyle = this.result.style.color === undefined ?  '银色': this.result.style.color;
                 const type = this.result.size;
                 const price =  this.result.price;
@@ -92,12 +88,13 @@ import cart from '@/components/cart.vue'
                     count:1,
                     price
                 }
-                this.cart.push(cartInfo);
-                // console.log(this.cart);
-           }
-       },
-       components:{
-           'cart':cart
+                newData.push(cartInfo);
+                console.log(newData);
+                this.add_SHOPCART(cart)
+           },
+           ...mapMutations({
+               add_SHOPCART:'ADD_SHOPCART'
+           })
        }
     }
 </script>

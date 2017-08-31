@@ -14,18 +14,26 @@
         <div class="address-list-wrap">
             <div class="address-list">
                 <ul>
-                    <li v-for="(address,index) in tableList.result" :key="index" class="listborder">
+                    <li v-for="(address,index) in filteAddress" :key="index"
+                     @click="addressIndex=index" :class="{'check':addressIndex==index}">
                         <div class="list-rect">
                             <span>{{address.userName}}</span>
                             <span>{{address.streetName}}</span>
                             <span>{{address.tel}}</span>
                         </div>
-                        <div class="addressOption">
+                        <div class="addressOption" v-show="address.isDefault">
                             <a href="javascript:;" class="icon-pencil"></a>
                         </div>
-                        <div class="addressdetele">
+                        <div class="addressdetele" v-show="address.isDefault">
                             <a href="javascript:;" class="icon-bin"></a>
                         </div>
+                        <div class="add-set-default" v-show="!address.isDefault">
+                            <a href="javascript:;" class="add-set-default-btn"
+                             @click="setDefaultAddress(address)">
+                                <i>设为默认</i>
+                            </a>
+                        </div>
+                        <div class="addr-opration" v-show="address.isDefault">默认地址</div>
                     </li>
                     <li class="add-new">
                         <div class="add-new-inner">
@@ -35,12 +43,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="add-mare">
-                <a href="javascript:;">
-                    more
-                    <i class="i-up-down"></i>
-                </a>
-            </div>
+            <transition name="MoreList">
+                <div class="add-mare" @click="limitacount()">
+                    <a href="javascript:;">
+                        more
+                        <i class="i-up-down"></i>
+                    </a>
+                </div>
+            </transition>
         </div>
   </div>
 </template>
@@ -49,19 +59,47 @@ import Vue from 'vue'
     export default{
         data:function(){
             return{
-                tableList:{}
+                tableList:[],
+                limitNum:2,
+                addressIndex:0,
+                CurrentDefaultAddress:{}
             }
         },
         computed:{
-            
+            filteAddress:function(){
+                return this.tableList.slice(0,this.limitNum);
+            }
         },
         mounted:function(){
             this.$nextTick(function(){
                 Vue.axios.get('../../static/data.json').then(res=>{
-                    console.log(res.data.address[0]);
-                    this.tableList=res.data.address[0];
+                    // console.log(res.data.address[0]);
+                    this.tableList=res.data.address[0].result;
+                    this.tableList.forEach(address=>{
+                        if(address.isDefault){
+                            this.CurrentDefaultAddress=address;
+                        }
+                    })
                 })
             })
+        },
+        methods:{
+            limitacount:function(){
+                if(this.limitNum==this.tableList.length){
+                    this.limitNum=2;
+                }else{
+                    this.limitNum=this.tableList.length;
+                }
+            },
+            setDefaultAddress:function(address){
+                this.CurrentDefaultAddress=address;
+                address.isDefault=true;
+            }
+        },
+        watch:{
+            CurrentDefaultAddress:function(newVal,oldVal){
+                oldVal.isDefault=false;
+            }
         }
         
     }
@@ -141,14 +179,30 @@ import Vue from 'vue'
                  li{
                     position: relative;
                     display: inline-block;
-                    height: 82px;
+                    height: 92px;
                     overflow: hidden;
-                    margin: 10px 2% 10px 0;
+                    margin: 10px 2% 10px 19px;
                     padding: 20px 20px 40px 20px;
                     background-color: #fff;
                     border: 2px solid #e9e9e9;
                     cursor: pointer;
-                    width: 23.5%;
+                    width: 25%;
+                    .add-set-default a i{
+                        font-style: normal;
+                        display: block;
+                        color: #605F5F;
+                        font-size: 14px;
+                        font-family: "微软雅黑";
+                        padding: 8px;
+                    }
+                    .addr-opration{
+                        font-style: normal;
+                        display: block;
+                        color: #ee7a23;
+                        font-size: 14px;
+                        font-family: "微软雅黑";
+                        padding: 8px;
+                    }
                     .list-rect{
                         display: flex;
                         flex-direction: column;
@@ -162,11 +216,11 @@ import Vue from 'vue'
                                 padding: 0 8px 8px 8px;
                             }
                             &:last-child{
-                                padding: 16px 8px 8px 8px;
+                                padding: 6px 8px 0px 8px;
                             }
                         }
                     }
-                    &.listborder{
+                    &.check{
                         border-color: #EE7A23;
                         border-width: 2px;
                     }
@@ -208,6 +262,16 @@ import Vue from 'vue'
                         }
                     }
                 }
+             }
+             .MoreList-enter-active{
+                 transition:all .3 ease;
+             }
+             .MoreList-leave-active{
+                 transition:all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+             }
+             .MoreList-enter, .MoreList-leave-to{
+                 transition: translateX(10px);
+                 opacity: 0;
              }
              .add-mare{
                  margin-top: 10px;

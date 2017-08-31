@@ -37,6 +37,7 @@ export default {
   font-weight: 200;
   font-size: 14px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  text-decoration: none;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

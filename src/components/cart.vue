@@ -65,7 +65,7 @@ import Vue from 'vue'
                 this.cart.splice(index,1);
             },
             clearing(){
-
+                window.location="http://localhost:8080/#/cataddress";
             }
         },
         filters:{

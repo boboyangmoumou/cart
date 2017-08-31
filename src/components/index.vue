@@ -93,7 +93,7 @@ import cart from '@/components/cart.vue'
                     price
                 }
                 this.cart.push(cartInfo);
-                console.log(this.cart);
+                // console.log(this.cart);
            }
        },
        components:{

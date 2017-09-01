@@ -40,12 +40,10 @@
                 </button>
             </div>
         </div>
-        <!-- <cart :cart="cart"></cart> -->
     </div>
 </template>
 <script>
 import Vue from 'vue'
-// import cart from '@/components/cart.vue'
 import {mapMutations} from 'vuex'
     export default{
         props:{
@@ -89,11 +87,10 @@ import {mapMutations} from 'vuex'
                     price
                 }
                 this.cart.push(cartInfo);
-                console.log(this.cart);
                 this.addSHOPCART(this.cart);
            },
            ...mapMutations({
-               addSHOPCART:'ADD_SHOPCART'
+               addSHOPCART:'ADD_SHOPCART',
            })
        }
     }
@@ -102,8 +99,8 @@ import {mapMutations} from 'vuex'
 .container{
     display: flex;
     direction: row;
-    /*width: 1000px;*/
-    /*margin: 0 auto;*/
+    width: 1000px;
+    margin: 0 auto;
 }
 .container .row{
     margin-top: 100px;

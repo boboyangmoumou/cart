@@ -4,7 +4,7 @@
       <router-link to="/index">首页</router-link>
     </div>
     <div class="tab-item">
-      <router-link to="/cart">购物车</router-link>
+      <router-link to="/cart">购物车<span class="goodCount" v-if="cart.length">{{cart.length}}</span></router-link>
     </div>
     <div class="tab-item">
       <router-link to="/cataddress">配送地址</router-link>
@@ -13,11 +13,20 @@
 </template>
 
 <script>
+import {mapGetters,mapMutations} from 'vuex'
 export default {
   data () {
     return {
     }
-  }
+  },
+  computed:{
+      ...mapGetters([
+      'cart'
+    ])
+  },
+  created(){
+    console.log(this.cart.length);
+  },
 }
 </script>
 
@@ -41,8 +50,27 @@ export default {
   color: #000;
   font-size: 14px;
   line-height: 40px;
+  position: relative;
 }
 .tab-item a:active{
   color: rgb(240,20,20);
+}
+.goodCount{
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  width: 24px;
+  height: 20px;
+  line-height: 20px;
+  border-radius:8px;
+  background-color: #d9534f;
+  color: #fff; 
+  display: inline-block;
+  margin-left: 8px;
+  position: absolute;
+  top: 11px;
+}
+.goodCount:before{
+  font-size: 0;
 }
 </style>

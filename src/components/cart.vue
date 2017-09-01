@@ -22,10 +22,13 @@
               </li>
           </ul>
       </div>
-      <div class="footer-btn" @click="clearing()">
+      <div class="footer-btn" @click="clearing()" v-if="cart.length">
           <button class="btn-block">
               结算
           </button>
+      </div>
+      <div v-else class="shopcartEmpty">
+            <span>这里啥都没有~~~</span>
       </div>
   </div>
 </template>
@@ -76,6 +79,8 @@ import {mapGetters,mapMutations} from 'vuex'
 <style>
 .cart{
     width: 1000px;
+    margin: 20px auto;
+    border-color: #ebccd1;
 }
 .cart-heading{
     display: flex;
@@ -101,7 +106,7 @@ import {mapGetters,mapMutations} from 'vuex'
     margin: 0 auto;
 }
 .cartBody {
-    
+    min-height: 40px;
 }
 .cartBody li{
    display: flex;
@@ -138,5 +143,8 @@ import {mapGetters,mapMutations} from 'vuex'
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
+}
+.shopcartEmpty{
+    text-align: center;
 }
 </style>

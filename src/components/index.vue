@@ -45,7 +45,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import cart from '@/components/cart.vue'
+// import cart from '@/components/cart.vue'
 import {mapMutations} from 'vuex'
     export default{
         props:{
@@ -88,12 +88,12 @@ import {mapMutations} from 'vuex'
                     count:1,
                     price
                 }
-                newData.push(cartInfo);
-                console.log(newData);
-                this.add_SHOPCART(cart)
+                this.cart.push(cartInfo);
+                console.log(this.cart);
+                this.addSHOPCART(this.cart);
            },
            ...mapMutations({
-               add_SHOPCART:'ADD_SHOPCART'
+               addSHOPCART:'ADD_SHOPCART'
            })
        }
     }

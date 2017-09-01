@@ -1,4 +1,4 @@
 const state = {
-    cartInfo: {}
+    cart: {}
 }
 export default state

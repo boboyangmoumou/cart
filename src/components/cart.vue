@@ -31,18 +31,8 @@
 </template>
 <script>
 import Vue from 'vue'
-import {mapGetters} from 'vuex'
+import {mapGetters,mapMutations} from 'vuex'
     export default{
-        computed:{
-                ...mapGetters([
-                    'cartInfo'
-                ])
-        },
-        props:{
-            cart:{
-                type:Array
-            }
-        },
         data:function(){
             return{
                 value:[],
@@ -56,18 +46,24 @@ import {mapGetters} from 'vuex'
                     totalPrice +=this.cart[i].price;
                 }
                 return totalPrice
-            }
+            },
+              ...mapGetters([
+                    'cart'
+                ])
         },
         created(){
-            console.log(this.cartInfo);
+            console.log(this.cart);
         },
         methods:{
             deletegood(index){
-                this.cart.splice(index,1);
+                this.Setdeletegood(index);
             },
             clearing(){
                 window.location="http://localhost:8080/#/cataddress";
-            }
+            },
+            ...mapMutations({
+                 Setdeletegood:'DELETEGOOD'
+            })
         },
         filters:{
             Currency:function(val){
@@ -132,7 +128,7 @@ import {mapGetters} from 'vuex'
     padding: 0;
     text-align: center;
     color: #f0595b;
-}
+} 
 .cartBody li .delete{
     color: #f0595b;
     width: 20px;

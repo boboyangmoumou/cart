@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <cartNav></cartNav>
-    <router-view :result="result"  keep-alive></router-view>
+    <transition name="slide-down">
+             <router-view :result="result"  keep-alive></router-view>
+    </transition>
   </div>
 </template>
 
@@ -44,5 +46,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+.slide-down-enter-active,.slide-down-leave-active{
+  transition: 1.8s all ease;
+  opacity: 0.6;
+  transform: translate3d(0,-150px,0);
+}
+.slide-down-enter,.slide-down-leave{
+  opacity: 1;
+  transform: translate3d(0,150px,0);
 }
 </style>
